@@ -1,0 +1,53 @@
+# 公共配置文件
+spring:
+  application:
+    name: hanqApi-backend
+  # 默认 dev 环境
+  profiles:
+    active: dev
+  # 支持 swagger3
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  session:
+    # 30 天过期
+    timeout: 2592000
+  # 数据库配置
+  # todo 需替换配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/hanqapi?useSSL=false&useUnicode=true&characterEncoding=UTF-8&serverTimeZone=UTC
+    username: root
+    password: root
+server:
+  address: 0.0.0.0
+  port: 7529
+  servlet:
+    context-path: /api
+    # cookie 30 天过期
+    session:
+      cookie:
+        max-age: 2592000
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete # 全局逻辑删除的实体字段名
+      logic-delete-value: 1 # 逻辑已删除值（默认为 1）
+      logic-not-delete-value: 0 # 逻辑未删除值（默认为 0）
+#dubbo配置 todo 更换配置
+dubbo:
+  application:
+    name: hanqApi
+  protocol:
+    name: dubbo
+    port: -1
+  registry:
+    address: nacos://localhost:8848
+# hanqApi配置
+hanqapi:
+  client:
+    access-key: hanq
+    secret-key: abcdefgh
